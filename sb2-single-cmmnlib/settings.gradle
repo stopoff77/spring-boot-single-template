@@ -1,0 +1,23 @@
+pluginManagement {
+    repositories {
+        maven {
+            url uri ("${rootProject.projectDir}/zMavenRepository")
+            metadataSources {
+                mavenPom()
+                artifact()
+            }
+        }
+        maven {
+            url uri ("${localRepository}")
+            metadataSources {
+                mavenPom()
+                artifact()
+            }
+        }
+
+        //mavenLocal()         //.m2/repository 사용 함
+        gradlePluginPortal() //
+    }
+}
+
+rootProject.name = "${thisProjectName}"
