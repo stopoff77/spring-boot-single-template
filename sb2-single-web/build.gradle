@@ -20,6 +20,7 @@ configurations {
 }
 
 repositories {
+/*
     maven {
         url uri ("${rootProject.projectDir}/zMavenRepository")
         metadataSources {
@@ -43,7 +44,7 @@ repositories {
             artifact()
         }
     }
-
+*/
     //mavenLocal() //.m2/repository 사용 함
     mavenCentral()
     maven {

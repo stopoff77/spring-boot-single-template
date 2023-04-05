@@ -1,5 +1,6 @@
 pluginManagement {
     repositories {
+/*
         maven {
             url uri ("${rootProject.projectDir}/zMavenRepository")
             metadataSources {
@@ -14,7 +15,7 @@ pluginManagement {
                 artifact()
             }
         }
-
+*/
         //mavenLocal()         //.m2/repository 사용 함
         gradlePluginPortal() //
     }
