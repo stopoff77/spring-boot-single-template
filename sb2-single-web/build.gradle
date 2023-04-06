@@ -20,31 +20,15 @@ configurations {
 }
 
 repositories {
-/*
-    maven {
-        url uri ("${rootProject.projectDir}/zMavenRepository")
-        metadataSources {
-            mavenPom()
-            artifact()
-        }
-    }
     maven {
         url uri ("${localRepository}")
+        //allowInsecureProtocol true // 강제로 http 사용하도록 하는 설정
         metadataSources {
             mavenPom()
             artifact()
         }
     }
 
-    maven {
-        url uri (project.repositoryBaseUrl + project.repositorySuffixPublic)
-        allowInsecureProtocol true // 강제로 http 사용하도록 하는 설정
-        metadataSources {
-            mavenPom()
-            artifact()
-        }
-    }
-*/
     //mavenLocal() //.m2/repository 사용 함
     mavenCentral()
     maven {
@@ -259,49 +243,5 @@ tasks.war {
 tasks.bootWar {
     enabled=false
 }
-
-
-/** sftp plugin task START */
-remotes {
-    dev {
-        host = "${devSshHost}"
-        user = "${devSshUser}"
-        password="${devSshPassword}"
-        //identity = file("/Users/baeksupervisor/cert/XXX.pem")
-        knownHosts = allowAnyHosts
-    }
-    prd {
-        host = "${prdSshHost}"
-        user = "${prdSshUser}"
-        password="${prdSshPassword}"
-        //identity = file("/Users/baeksupervisor/cert/XXX.pem")
-        knownHosts = allowAnyHosts
-    }
-}
-// gradle build를 별도로 실행해야 함 (gradle deployToServer)
-//task deployToServer (dependsOn: "war") {
-tasks.register("deployToServer") {
-    def warLocal       = "${buildDir}/libs/spring-web.war"
-    def warRemote      = "/app/spring-web/spring-web.war"
-    def warShellScript = "/app/deploy.sh"
-
-    doLast {
-        ssh.run {
-            if("${profile}" == "dev") {
-                session(remotes.dev) {
-                    put from: warLocal, into: warRemote
-                    execute(warShellScript)
-                }
-            }
-            if("${profile}" == "prd") {
-                session(remotes.prd) {
-                    put from: "${buildDir}/libs/TEST.war", into: "/home/ec2-user/tomcat/baeksupervisor/webapps/ROOT.war"
-                    execute("/data/deploy.sh")
-                }
-            }
-        }
-    }
-}
-/** sftp plugin task END */
 
 /**########## task END ##########**/
