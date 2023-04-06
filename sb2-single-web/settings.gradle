@@ -8,6 +8,7 @@ pluginManagement {
             }
         }
 
+        //mavenLocal() //.m2/repository 사용 함
         gradlePluginPortal() //
     }
 }
