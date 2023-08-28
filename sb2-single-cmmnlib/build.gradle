@@ -76,7 +76,6 @@ ext {
     artifactIdByProfile     = project.thisProjectName // 환경별 artifactId
     versionByProfile        = "" // 환경별 version
     deployFileNameByProfile = "" // 환경별 jar name
-    fileExtension           = ".jar" // 파일 확장자
     if(isDEV) {
         deployUrl               = "${repositoryBaseUrl}" + project.repositorySuffixSnapshot
         versionByProfile        = "${DEV}-" + version + "-SNAPSHOT"
@@ -90,7 +89,7 @@ ext {
         println "check your gradle profile[${profile}]"
         throw new GradleException("check your gradle profile[${profile}]")
     }
-    deployFileNameByProfile = artifactIdByProfile + "-" + versionByProfile + fileExtension
+    deployFileNameByProfile = artifactIdByProfile + "-" + versionByProfile + project.properties["deployFileExtension"]
 
     println(project.name + "[${profile}/" + currentProfile + "/" + deployFileNameByProfile + "]")
     println(rootProject.name + "[${profile}/" + currentProfile + "/" + deployFileNameByProfile + "]")
