@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets;
 
 public class Project {
 
-    //FIXME CHECK-package 확인 (공통 설정)
+    // FIXME CHECK-package 확인 (공통 설정)
     public static final String BASE_PKG   = "com.example";
     public static final String BASE_PKG_2 = "com.sample";
 
