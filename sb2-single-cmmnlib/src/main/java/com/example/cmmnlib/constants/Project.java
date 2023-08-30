@@ -3,7 +3,7 @@ package com.example.cmmnlib.constants;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-public class Common {
+public class Project {
 
     //FIXME CHECK-package 확인 (공통 설정)
     public static final String BASE_PKG   = "com.example";
