@@ -73,7 +73,7 @@ ext {
 
 
     deployUrl               = ""
-    artifactIdByProfile     = project.thisProjectName // 환경별 artifactId
+    thisArtifactId          = project.thisProjectName // 환경별 artifactId
     versionByProfile        = "" // 환경별 version
     deployFileNameByProfile = "" // 환경별 jar name
     if(isDEV) {
@@ -89,7 +89,7 @@ ext {
         println "check your gradle profile[${profile}]"
         throw new GradleException("check your gradle profile[${profile}]")
     }
-    deployFileNameByProfile = artifactIdByProfile + "-" + versionByProfile + project.properties["deployFileExtension"]
+    deployFileNameByProfile = thisArtifactId + "-" + versionByProfile + project.properties["deployFileExtension"]
 
     println(project.name + "[${profile}/" + currentProfile + "/" + deployFileNameByProfile + "]")
     println(rootProject.name + "[${profile}/" + currentProfile + "/" + deployFileNameByProfile + "]")
@@ -131,7 +131,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId    = group
-            artifactId = artifactIdByProfile
+            artifactId = thisArtifactId
             version    = versionByProfile
 
             versionMapping {
