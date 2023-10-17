@@ -77,14 +77,14 @@ ext {
     versionByProfile        = "" // 환경별 version
     deployFileNameByProfile = "" // 환경별 jar name
     if(isDEV) {
-        deployUrl               = "${repositoryBaseUrl}" + project.repositorySuffixSnapshot
-        versionByProfile        = "${DEV}-" + version + "-SNAPSHOT"
+        deployUrl        = "${repositoryBaseUrl}" + project.repositorySuffixSnapshot
+        versionByProfile = "${DEV}-" + version + "-SNAPSHOT"
     } else if(isSTG) {
-        deployUrl               = "${repositoryBaseUrl}" + project.repositorySuffixSnapshot
-        versionByProfile        = "${STG}-" + version + "-SNAPSHOT"
+        deployUrl        = "${repositoryBaseUrl}" + project.repositorySuffixSnapshot
+        versionByProfile = "${STG}-" + version + "-SNAPSHOT"
     } else if(isPRD) {
-        deployUrl               = "${repositoryBaseUrl}" + project.repositorySuffixRelease
-        versionByProfile        = version
+        deployUrl        = "${repositoryBaseUrl}" + project.repositorySuffixRelease
+        versionByProfile = version
     } else {
         println "check your gradle profile[${profile}]"
         throw new GradleException("check your gradle profile[${profile}]")
