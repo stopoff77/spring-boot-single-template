@@ -1,10 +1,10 @@
 plugins {
-    id "war"
-    id "java"
-    id "maven-publish"
-    id "org.springframework.boot"        version "${springBootVersion}"
-    id "io.spring.dependency-management" version "${springDependencyManagementVersion}"
-    id "org.hidetake.ssh"                version "${hidetakeSshVersion}"
+    id 'war'
+    id 'java'
+    id 'maven-publish'
+    id 'org.springframework.boot'        version "${springBootVersion}"
+    id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+    id 'org.hidetake.ssh'                version "${hidetakeSshVersion}"
 }
 
 dependencyManagement {
@@ -32,7 +32,7 @@ repositories {
     //mavenLocal() //.m2/repository 사용 함
     mavenCentral()
     maven {
-        url "https://plugins.gradle.org/m2/"
+        url 'https://plugins.gradle.org/m2/'
     }
 }
 
@@ -43,11 +43,11 @@ targetCompatibility = "${javaTarget}"
 [compileJava, compileTestJava]*.options*.encoding = "${javaEncoding}"
 
 ext {
-    DEV = "dev"
-    STG = "stg"
-    PRD = "prd"
-    if (!project.hasProperty("profile") || !profile) {
-        ext.profile = DEV //"dev"
+    DEV = 'dev'
+    STG = 'stg'
+    PRD = 'prd'
+    if (!project.hasProperty('profile') || !profile) {
+        ext.profile = DEV //'dev'
     }
 
     currentProfile  = "${profile}" // 환경에 따른 배포를 위한 변수    
@@ -63,15 +63,15 @@ ext {
     println(isPRD)
 
 
-    cmmnlibGroupId          = "com.example"
-    cmmnlibArtifactId       = "sb2-single-cmmnlib"
-    cmmnlibVersion          = "0.0.1"
+    cmmnlibGroupId          = 'com.example'
+    cmmnlibArtifactId       = 'sb2-single-cmmnlib'
+    cmmnlibVersion          = '0.0.1'
     cmmnlibVersionByProfile = "${DEV}-${cmmnlibVersion}"
 
     if(isDEV) {
-        cmmnlibVersionByProfile = "${DEV}-" + cmmnlibVersion + "-SNAPSHOT"
+        cmmnlibVersionByProfile = "${DEV}-" + cmmnlibVersion + '-SNAPSHOT'
     } else if(isSTG) {
-        cmmnlibVersionByProfile = "${STG}-" + cmmnlibVersion + "-SNAPSHOT"
+        cmmnlibVersionByProfile = "${STG}-" + cmmnlibVersion + '-SNAPSHOT'
     } else if(isPRD) {
         cmmnlibVersionByProfile = "${cmmlibProject}"
     } else {
@@ -82,16 +82,16 @@ ext {
 
 sourceSets {
     main {
-        java.srcDirs = ["src/main/java"]
+        java.srcDirs = ['src/main/java']
 
-        if(project.hasProperty( "profile" )) {
+        if(project.hasProperty( 'profile' )) {
             // resource에 src/main/java 패키지 제외하고 build하기
-            //resources.srcDirs = ["src/main/resources", "src/main/resources-${profile}"]
+            //resources.srcDirs = ['src/main/resources', "src/main/resources-${profile}"]
 
             // resource에 src/main/java 패키지 내 xml 파일 포함하여 build하기
-            resources.srcDirs = ["src/main/java", "src/main/resources", "src/main/resources-${profile}"]
+            resources.srcDirs = ['src/main/java', 'src/main/resources', "src/main/resources-${profile}"]
 
-            //resources.excludes = ["**/sample", "**/sample*", "**/sample/*"]
+            //resources.excludes = ['**/sample', '**/sample*', '**/sample/*']
         }
     }
 }
@@ -102,25 +102,25 @@ dependencies {
     implementation "${cmmnlibGroupId}:${cmmnlibArtifactId}:${cmmnlibVersionByProfile}"
 
 
-    annotationProcessor "org.projectlombok:lombok"
-    compileOnly         "org.projectlombok:lombok"
-    developmentOnly     "org.springframework.boot:spring-boot-devtools"
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly         'org.projectlombok:lombok'
+    developmentOnly     'org.springframework.boot:spring-boot-devtools'
 
     /** spring-boot */
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-    implementation      "org.springframework.boot:spring-boot-actuator-autoconfigure"
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    implementation      'org.springframework.boot:spring-boot-actuator-autoconfigure'
 
     /** spring-boot-starter */
-    implementation "org.springframework.boot:spring-boot-starter-aop"
-    implementation "org.springframework.boot:spring-boot-starter-web"
-    implementation "org.springframework.boot:spring-boot-starter-webflux"
-    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     /** spring-boot-starter-security */
-    implementation ("org.springframework.boot:spring-boot-starter-security")
+    implementation ('org.springframework.boot:spring-boot-starter-security')
     /** spring-cloud-security */
-    //implementation "org.springframework.cloud:spring-cloud-security:2.2.5.RELEASE"
-    //implementation "org.springframework.cloud:spring-cloud-starter-security:2.2.5.RELEASE"
+    //implementation 'org.springframework.cloud:spring-cloud-security:2.2.5.RELEASE'
+    //implementation 'org.springframework.cloud:spring-cloud-starter-security:2.2.5.RELEASE'
 
     /** mybatis-spring-boot-starter */
     implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootVersion}"
@@ -129,65 +129,65 @@ dependencies {
     implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:${jasyptSpringBootVersion}"
 
     /** test dependency */
-    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 
     /** jetty for webClient Loging */
-    //implementation "org.eclipse.jetty:jetty-reactive-httpclient:1.1.12"
+    //implementation 'org.eclipse.jetty:jetty-reactive-httpclient:1.1.12'
     implementation ("org.eclipse.jetty:jetty-reactive-httpclient:${jettyReactiveHttpclientVersion}") {
-        exclude module: "jetty-client"
-        exclude group : "org.slf4j"
+        exclude module: 'jetty-client'
+        exclude group : 'org.slf4j'
     }
     implementation ("org.eclipse.jetty:jetty-client:${jettyClientVersion}") {
-        exclude module: "jetty-alpn-client"
-        exclude module: "jetty-http"
-        exclude module: "jetty-io"
-        exclude module: "jetty-util"
-        exclude module: "slf4j-api"
+        exclude module: 'jetty-alpn-client'
+        exclude module: 'jetty-http'
+        exclude module: 'jetty-io'
+        exclude module: 'jetty-util'
+        exclude module: 'slf4j-api'
     }
     implementation ("org.eclipse.jetty:jetty-alpn-client:${jettyClientVersion}") {
-        exclude module: "jetty-io"
-        exclude module: "jetty-util"
-        exclude module: "slf4j-api"
+        exclude module: 'jetty-io'
+        exclude module: 'jetty-util'
+        exclude module: 'slf4j-api'
     }
     implementation ("org.eclipse.jetty:jetty-http:${jettyClientVersion}") {
-        exclude module: "jetty-io"
-        exclude module: "jetty-util"
-        exclude module: "slf4j-api"
+        exclude module: 'jetty-io'
+        exclude module: 'jetty-util'
+        exclude module: 'slf4j-api'
     }
     implementation ("org.eclipse.jetty:jetty-io:${jettyClientVersion}") {
-        exclude module: "jetty-util"
-        exclude module: "slf4j-api"
+        exclude module: 'jetty-util'
+        exclude module: 'slf4j-api'
     }
     implementation ("org.eclipse.jetty:jetty-util:${jettyClientVersion}") {
-        exclude module: "slf4j-api"
+        exclude module: 'slf4j-api'
     }
 
     /** apache-commons */
-    implementation "commons-beanutils:commons-beanutils:1.9.4"
-    implementation "commons-codec:commons-codec:1.15"
-    implementation "commons-io:commons-io:2.11.0"
-    implementation "org.apache.commons:commons-collections4:4.4"
-    implementation "org.apache.commons:commons-lang3:3.12.0"
-    implementation "org.apache.commons:commons-text:1.9"
-    implementation "commons-fileupload:commons-fileupload:1.5" // file upload
+    implementation 'commons-beanutils:commons-beanutils:1.9.4'
+    implementation 'commons-codec:commons-codec:1.15'
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation 'org.apache.commons:commons-collections4:4.4'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'org.apache.commons:commons-text:1.9'
+    implementation 'commons-fileupload:commons-fileupload:1.5' // file upload
 
     /** java servlet */
-    implementation("javax.servlet:jstl")
-    implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
+    implementation('javax.servlet:jstl')
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
     /** lucy-xss-servlet< */
-    implementation "com.navercorp.lucy:lucy-xss-servlet:2.0.1"
+    implementation 'com.navercorp.lucy:lucy-xss-servlet:2.0.1'
 
     //
-    providedRuntime "org.springframework.boot:spring-boot-starter-tomcat" //war 배포시
-    //implementation "org.springframework.boot:spring-boot-starter-tomcat" //jar 배포시
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat' //war 배포시
+    //implementation 'org.springframework.boot:spring-boot-starter-tomcat' //jar 배포시
 
 
     /** Database driver */
     // h2
-    runtimeOnly "com.h2database:h2"
-    implementation group: "org.bgee.log4jdbc-log4j2", name: "log4jdbc-log4j2-jdbc4.1", version: "1.16"
+    runtimeOnly 'com.h2database:h2'
+    implementation group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
 
 }
 
@@ -212,18 +212,18 @@ tasks.processResources {
 
 tasks.bootJar {
     //
-    println "bootJar"
+    println 'bootJar'
 
-    archiveClassifier.set("")
+    archiveClassifier.set('')
     enabled = false
     archiveFileName = "${deployFileName}"
     duplicatesStrategy = DuplicatesStrategy.WARN
 }
 
 tasks.jar {
-    println "jar"
+    println 'jar'
 
-    archiveClassifier.set("")
+    archiveClassifier.set('')
     enabled = false
     archiveFileName = "${deployFileName}"
     duplicatesStrategy = DuplicatesStrategy.WARN
