@@ -47,8 +47,10 @@ repositories {
 
 group   = "${projectGroup}"
 version = "${projectVersion}"
-sourceCompatibility = "${javaSource}"
-targetCompatibility = "${javaTarget}"
+java {
+    sourceCompatibility = "${javaSource}"
+    targetCompatibility = "${javaTarget}"
+}
 [compileJava, compileTestJava]*.options*.encoding = "${javaEncoding}" // 소스 인코딩 지정밥법 1
 
 ext {

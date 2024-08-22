@@ -38,8 +38,10 @@ repositories {
 
 group   = "${projectGroup}"
 version = "${projectVersion}"
-sourceCompatibility = "${javaSource}"
-targetCompatibility = "${javaTarget}"
+java {
+    sourceCompatibility = "${javaSource}"
+    targetCompatibility = "${javaTarget}"
+}
 [compileJava, compileTestJava]*.options*.encoding = "${javaEncoding}"
 
 ext {
@@ -73,7 +75,7 @@ ext {
     } else if(isSTG) {
         cmmnlibVersionByProfile = "${STG}-" + cmmnlibVersion + '-SNAPSHOT'
     } else if(isPRD) {
-        cmmnlibVersionByProfile = "${cmmlibProject}"
+        cmmnlibVersionByProfile = "${cmmnlibVersion}"
     } else {
         println "check your gradle profile[${profile}]"
         throw new GradleException("check your gradle profile[${profile}]")
