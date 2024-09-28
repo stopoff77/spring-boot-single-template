@@ -258,7 +258,8 @@ tasks.javadoc {
 
 tasks {
     processResources {
-        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        duplicatesStrategy(DuplicatesStrategy.WARN)
+        //duplicatesStrategy = DuplicatesStrategy.INCLUDE
         //duplicatesStrategy = DuplicatesStrategy.WARN
 
         // compileJava 후 실행
@@ -270,7 +271,8 @@ tasks {
         println "bootJar"
         enabled = false
         archiveFileName = "${deployFileNameByProfile}"
-        duplicatesStrategy = DuplicatesStrategy.WARN
+        duplicatesStrategy(DuplicatesStrategy.WARN)
+        //duplicatesStrategy = DuplicatesStrategy.WARN
     }
 
     jar {
