@@ -235,6 +235,14 @@ tasks.war {
     enabled = true
     archiveFileName = "${deployFileName}"
 
+    //rootSpec.exclude('**/static') // 모든(?) static 폴더 및 하위 폴더(파일) 제외
+    rootSpec.exclude('static')      // resources/static 폴더 및 하위 폴더(파일) 제외
+
+    // webapp
+    webAppDirectory = file('src/webapp')
+    from 'src/main/resources/static'
+    //webXml = file('src/webapp/WEB-INF/web.xml') // copies a file to WEB-INF/web.xml
+
     doLast {
         println("${thisProjectName}[war doLast] deploy profile [" + currentProfile + "]")
     }
