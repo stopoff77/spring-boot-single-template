@@ -39,8 +39,8 @@ repositories {
 group   = "${projectGroup}"
 version = "${projectVersion}"
 java {
-    sourceCompatibility = "${javaSource}"
-    targetCompatibility = "${javaTarget}"
+    sourceCompatibility = "${javaVersion}"
+    targetCompatibility = "${javaVersion}"
 }
 [compileJava, compileTestJava]*.options*.encoding = "${javaEncoding}"
 
